@@ -10,6 +10,7 @@ def get_map():
             my_map.append(row)
     return my_map
 
+
 def get_user_input(debug_mode):
     if debug_mode:
         return 3, 5, 'S'
