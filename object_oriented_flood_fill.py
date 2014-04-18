@@ -3,8 +3,20 @@ class Map():
         self.map = self.read_map(filename)
         self.coords = coords
 
-    def flood_fill(self):
-        pass
+    def flood_fill(self, x, y, original_char, fill_char):
+
+        if map[y][x] != original_char:
+            return
+
+        map[y][x] = fill_char
+        if x - 1 >= 0:
+            self.flood_fill(map, x - 1, y, original_char, fill_char)
+        if x + 1 < len(map[y]):
+            self.flood_fill(map, x + 1, y, original_char, fill_char)
+        if y - 1 >= 0:
+            self.flood_fill(map, x, y - 1, original_char, fill_char)
+        if y + 1 < len(map):
+            self.flood_fill(map, x, y + 1, original_char, fill_char)
 
     def print_map(self):
         pass
@@ -48,18 +60,18 @@ def get_user_input(debug_mode):
 
     return x, y, c
 
-def fill_map(map, x, y, fill_char, original_char):
-    if map[y][x] != original_char:
-        return
-    map[y][x] = fill_char
-    if x-1 >= 0:
-        fill_map(map, x - 1, y, fill_char, original_char)
-    if x + 1 < len(map[y]):
-        fill_map(map, x + 1, y, fill_char, original_char)
-    if y - 1 >= 0:
-        fill_map(map, x, y - 1, fill_char, original_char)
-    if y + 1 < len(map):
-        fill_map(map, x, y + 1, fill_char, original_char)
+# def fill_map(map, x, y, fill_char, original_char):
+#     if map[y][x] != original_char:
+#         return
+#     map[y][x] = fill_char
+#     if x-1 >= 0:
+#         fill_map(map, x - 1, y, fill_char, original_char)
+#     if x + 1 < len(map[y]):
+#         fill_map(map, x + 1, y, fill_char, original_char)
+#     if y - 1 >= 0:
+#         fill_map(map, x, y - 1, fill_char, original_char)
+#     if y + 1 < len(map):
+#         fill_map(map, x, y + 1, fill_char, original_char)
 
 def print_map(map):
     for line in map:
