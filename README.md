@@ -1,5 +1,5 @@
-PYTHON
-======
+PYTHON WORKSPACE
+================
 
 This repo contains files I've used while learning to work with Python. It's meant to be a sandbox of files with code
 used specifically for messing around and learning what Python can do.
