@@ -47,7 +47,6 @@ def find_words(val, n=None):
             continue_looping = False
 
     return results
-
     # for w in sorted(results):
     #     print w
 
@@ -77,7 +76,7 @@ def scrambled_words():
     selected_word = choice(word_list)
 
     # print selected_word + ': '
-    print shuffle_word(selected_word) + ': '
+    shuffled_word = shuffle_word(selected_word) + ': '
 
     len6 = list(find_words(selected_word, 6))
     len5 = list(find_words(selected_word, 5))
@@ -87,15 +86,35 @@ def scrambled_words():
     len5_found = []
     len4_found = []
 
-    print "\nFound four letter words: " + str(len6_found)
-    print str(len(len6) - len(len6_found)) + " six letter words left."
-    print "Found five letter words: " + str(len5_found)
-    print str(len(len5) - len(len5_found)) + " five letter words left."
-    print "Found six letter words: " + str(len4_found)
-    print str(len(len4) - len(len4_found)) + " four letter words left."
+    while len6 or len5 or len4:
+        print
+        print shuffled_word
 
-    user_choice = raw_input("\nEnter a word: ")
+        print "\nFound four letter words: " + str(len6_found)
+        print str(len(len6)) + " six letter words left."
+        print "Found five letter words: " + str(len5_found)
+        print str(len(len5)) + " five letter words left."
+        print "Found six letter words: " + str(len4_found)
+        print str(len(len4)) + " four letter words left."
 
+        user_choice = raw_input("\nEnter a word: ")
+
+        if user_choice in len6 or user_choice in len5 or user_choice in len4:
+            print "Found word!"
+
+            if user_choice in len6:
+                len6_found.append(user_choice)
+                len6.remove(user_choice)
+            elif user_choice in len5:
+                len5_found.append(user_choice)
+                len5.remove(user_choice)
+            elif user_choice in len4:
+                len4_found.append(user_choice)
+                len4.remove(user_choice)
+        else:
+            print "Not a valid choice."
+
+    print "You won the game!"
 
 
 scrambled_words()
