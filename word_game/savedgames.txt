@@ -1,9 +1,0 @@
-A saved game.
-iacddt: 
-['acid']
-['dicta']
-['addict']
-[]
-[]
-[]
-

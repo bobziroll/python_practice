@@ -73,35 +73,35 @@ def shuffle_word(word):
     return ''.join(word)
 
 
-def scrambled_words():
+def scrambled_words(shuffled_word=None, len4_found=None, len5_found=None,
+                    len6_found=None):
+
     word_list = list(get_word_set(6))
 
-    from random import choice
-    selected_word = choice(word_list)
+    if shuffled_word is None:
+        from random import choice
+        selected_word = choice(word_list)
+        shuffled_word = shuffle_word(selected_word)
+        len6_found = []
+        len5_found = []
+        len4_found = []
 
-    # print selected_word + ': '
-    shuffled_word = shuffle_word(selected_word) + ': '
-
-    len6 = list(find_words(selected_word, 6))
-    len5 = list(find_words(selected_word, 5))
-    len4 = list(find_words(selected_word, 4))
-
-    len6_found = []
-    len5_found = []
-    len4_found = []
+    len6 = list(find_words(shuffled_word, 6))
+    len5 = list(find_words(shuffled_word, 5))
+    len4 = list(find_words(shuffled_word, 4))
 
     print "Enter 's' to save and quit to the menu."
     print "Enter 'q' to quit to the menu without saving."
 
     while len6 or len5 or len4:
         print
-        print shuffled_word
+        print shuffled_word + ': '
 
-        print "\nFound four letter words: " + str(len6_found)
+        print "\nFound six letter words: " + str(len6_found)
         print str(len(len6)) + " six letter words left."
         print "Found five letter words: " + str(len5_found)
         print str(len(len5)) + " five letter words left."
-        print "Found six letter words: " + str(len4_found)
+        print "Found four letter words: " + str(len4_found)
         print str(len(len4)) + " four letter words left."
 
         user_choice = raw_input("\nEnter a word: ")
@@ -111,12 +111,9 @@ def scrambled_words():
             return
         if user_choice == 's':
             save_game_name = raw_input("\nEnter a name for the saved game: ")
-            with open('savedgames.txt', 'w') as f:
+            with open('saved_games/' + save_game_name + '.txt', 'w') as f:
                 f.write(save_game_name + '\n')
                 f.write(shuffled_word + '\n')
-                f.write(str(len4) + '\n')
-                f.write(str(len5) + '\n')
-                f.write(str(len6) + '\n')
                 f.write(str(len4_found) + '\n')
                 f.write(str(len5_found) + '\n')
                 f.write(str(len6_found) + '\n')
@@ -144,6 +141,27 @@ def scrambled_words():
     print "You won the game!"
 
 
+def load_game():
+    import os
+    game_saves = [f for f in os.listdir('saved_games')
+                  if f.lower().endswith('.txt')]
+
+    print "\nSaved games: "
+    for save in game_saves:
+        print "\t" + save[:-4]
+
+    user_choice = raw_input("\nType the name of a game save: ")
+
+    with open('saved_games/' + user_choice + '.txt') as f:
+        import ast
+        f.readline()
+        shuffled_word = f.readline().strip()
+        len4_found = ast.literal_eval(f.readline())
+        len5_found = ast.literal_eval(f.readline())
+        len6_found = ast.literal_eval(f.readline())
+
+    scrambled_words(shuffled_word, len4_found, len5_found, len6_found)
+
 def main():
     while True:
         print "Enter a number to play a game."
@@ -152,9 +170,21 @@ def main():
         user_choice = raw_input("> ")
 
         if user_choice == '1':
-            scrambled_words()
+            print "Enter a number to choose an option."
+            print "1: Start a new game."
+            print "2: Load an existing game."
+            user_choice = raw_input('> ')
+
+            if user_choice == '1':
+                scrambled_words()
+            elif user_choice == '2':
+                load_game()
+            else:
+                print "Not a valid choice. Please enter a valid choice."
         elif user_choice == '2':
             permutation_game()
+        elif user_choice == 'q':
+            quit()
         else:
             print "Not a valid choice. Please enter a valid choice."
 main()
