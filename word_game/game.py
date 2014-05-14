@@ -47,11 +47,15 @@ def find_words(val, n=None):
             continue_looping = False
 
     return results
-    # for w in sorted(results):
-    #     print w
 
-# val = raw_input('Enter a word: ')
-# find_words(val)
+
+def permutation_game():
+    val = raw_input('Enter a word: ')
+    results = find_words(val)
+    for w in sorted(results):
+        if len(w) > 3:
+            print w
+    print
 
 # Exercise two:
 
@@ -86,6 +90,9 @@ def scrambled_words():
     len5_found = []
     len4_found = []
 
+    print "Enter 's' to save and quit to the menu."
+    print "Enter 'q' to quit to the menu without saving."
+
     while len6 or len5 or len4:
         print
         print shuffled_word
@@ -98,6 +105,26 @@ def scrambled_words():
         print str(len(len4)) + " four letter words left."
 
         user_choice = raw_input("\nEnter a word: ")
+
+        if user_choice == 'q':
+            print
+            return
+        if user_choice == 's':
+            save_game_name = raw_input("\nEnter a name for the saved game: ")
+            with open('savedgames.txt', 'w') as f:
+                f.write(save_game_name + '\n')
+                f.write(shuffled_word + '\n')
+                f.write(str(len4) + '\n')
+                f.write(str(len5) + '\n')
+                f.write(str(len6) + '\n')
+                f.write(str(len4_found) + '\n')
+                f.write(str(len5_found) + '\n')
+                f.write(str(len6_found) + '\n')
+                f.write('\n')
+
+            print
+            return
+
 
         if user_choice in len6 or user_choice in len5 or user_choice in len4:
             print "Found word!"
@@ -117,4 +144,19 @@ def scrambled_words():
     print "You won the game!"
 
 
-scrambled_words()
+def main():
+    while True:
+        print "Enter a number to play a game."
+        print "1: word guessing game."
+        print "2: word guessing game solver."
+        user_choice = raw_input("> ")
+
+        if user_choice == '1':
+            scrambled_words()
+        elif user_choice == '2':
+            permutation_game()
+        else:
+            print "Not a valid choice. Please enter a valid choice."
+main()
+
+
