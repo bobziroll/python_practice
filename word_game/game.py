@@ -109,6 +109,7 @@ def scrambled_words(shuffled_word=None, len4_found=None, len5_found=None,
         if user_choice == 'q':
             print
             return
+
         if user_choice == 's':
             save_game_name = raw_input("\nEnter a name for the saved game: ")
             with open('saved_games/' + save_game_name + '.txt', 'w') as f:
@@ -118,10 +119,8 @@ def scrambled_words(shuffled_word=None, len4_found=None, len5_found=None,
                 f.write(str(len5_found) + '\n')
                 f.write(str(len6_found) + '\n')
                 f.write('\n')
-
             print
             return
-
 
         if user_choice in len6 or user_choice in len5 or user_choice in len4:
             print "Found word!"
@@ -161,6 +160,7 @@ def load_game():
         len6_found = ast.literal_eval(f.readline())
 
     scrambled_words(shuffled_word, len4_found, len5_found, len6_found)
+
 
 def main():
     while True:
