@@ -21,6 +21,7 @@ def get_user_input(debug_mode):
 
     return x, y, c
 
+
 def fill_map(map, x, y, fill_char, original_char):
     if map[y][x] != original_char:
         return
@@ -33,6 +34,7 @@ def fill_map(map, x, y, fill_char, original_char):
         fill_map(map, x, y - 1, fill_char, original_char)
     if y + 1 < len(map):
         fill_map(map, x, y + 1, fill_char, original_char)
+
 
 def print_map(map):
     for line in map:
