@@ -12,14 +12,14 @@ end_other('abc', 'abXabc') --> True
 
 
 def end_other(a, b):
-    if len(a) > len(b):
-        return b.lower() in a[-len(b):].lower()
+    a = a.lower()
+    b = b.lower()
 
-    elif len(b) > len(a):
-        return a.lower() in b[-len(a):].lower()
+    if len(a) != len(b):
+        return (b in a[-len(b):]) or (a in b[-len(a):])
 
     else:
-        return a.lower() == b.lower()
+        return a == b
 
 # Coding Bat's solution is better:
 
