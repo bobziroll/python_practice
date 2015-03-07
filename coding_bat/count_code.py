@@ -12,16 +12,24 @@ count_code('cozexxcope') --> 2
 
 def count_code(str):
     count = 0
-    for i in range(len(str)-1):
-        try:
-            if str[i] == "c":
-                if str[i + 1] == "o" and str[i + 1]:
-                    if str[i + 2]:
-                        if str[i + 3] == "e" and str[i + 3]:
-                            count += 1
-        except IndexError:
-            return count
+    for i in range(len(str)-3):
+        if str[i:i+2] == "co" and str[i+3] == "e":
+            count += 1
     return count
+
+
+# def count_code(str):
+#     count = 0
+#     for i in range(len(str)-1):
+#         try:
+#             if str[i] == "c":
+#                 if str[i + 1] == "o" and str[i + 1]:
+#                     if str[i + 2]:
+#                         if str[i + 3] == "e" and str[i + 3]:
+#                             count += 1
+#         except IndexError:
+#             return count
+#     return count
 
 print count_code('aaacodebbb')
 print count_code('codexxcode')
