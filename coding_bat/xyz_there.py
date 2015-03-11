@@ -20,16 +20,6 @@ def xyz_there(str):
     return False
 
 
-
-
-
-# def xyz_there(str):
-#     if "xyz" in str:
-#         for i in range(len(str)):
-#             if str[i] != "." and str[i+1:i+4] == "xyz":
-#                 return True
-#     return False
-
 print xyz_there('abcxyz')  # True
 print xyz_there('abc.xyz')  # False
 print xyz_there('xyz.abc')  # True
