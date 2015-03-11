@@ -8,7 +8,7 @@ class Map():
     def print_map(self):
         # for line in map:
         #     print ''.join(line)
-
+        pass
 
     def read_map(self, filename):
         my_map = []
